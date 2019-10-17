@@ -48,7 +48,6 @@ public class AppConfig {
 
         factoryBean.setHibernateProperties(props);
         factoryBean.setPackagesToScan("mate.academy.spring.entity");
-        //factoryBean.setAnnotatedClasses(User.class);
         return factoryBean;
     }
 
