@@ -30,7 +30,7 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findByTitle(String title) {
         TypedQuery<Book> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Book WHERE title =:title", Book.class);
+                .createQuery("FROM Book WHERE title LIKE CONCAT('%',:title,'%')", Book.class);
         query.setParameter("title", title);
         return query.getResultList();
     }

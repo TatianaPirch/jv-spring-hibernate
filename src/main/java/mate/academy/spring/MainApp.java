@@ -82,7 +82,7 @@ public class MainApp {
         }
 
         // Get authors by name
-        List<Author> authors = authorService.findByName("Clifford");
+        List<Author> authors = authorService.findByName("Clif");
         for (Author author : authors) {
             System.out.println("Author id = " + author.getId());
             System.out.println("Author name = " + author.getName());

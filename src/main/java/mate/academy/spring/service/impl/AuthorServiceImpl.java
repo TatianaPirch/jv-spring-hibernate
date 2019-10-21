@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthorServiceImpl implements AuthorService {
 
     @Autowired
-    AuthorDao authorDao;
+    private AuthorDao authorDao;
 
     @Transactional
     @Override

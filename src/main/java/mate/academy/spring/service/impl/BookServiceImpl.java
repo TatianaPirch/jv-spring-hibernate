@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    BookDao bookDao;
+    private BookDao bookDao;
 
     @Transactional
     @Override

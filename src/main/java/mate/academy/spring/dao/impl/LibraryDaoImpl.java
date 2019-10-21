@@ -2,7 +2,6 @@ package mate.academy.spring.dao.impl;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.persistence.TypedQuery;
 
 import mate.academy.spring.dao.LibraryDao;
@@ -40,14 +39,11 @@ public class LibraryDaoImpl implements LibraryDao {
 
     @Override
     public List<Book> getBooksRentByUser(User user) {
-        TypedQuery<Rent> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Rent WHERE user =:user"
-                        + " AND is_active =:active", Rent.class);
-        query.setParameter("user", user);
+        TypedQuery<Book> query = sessionFactory.getCurrentSession()
+                .createQuery("SELECT book FROM Rent WHERE user_id =:user_id"
+                        + " AND is_active =:active", Book.class);
+        query.setParameter("user_id", user.getId());
         query.setParameter("active", true);
-        List<Book> books = query.getResultList().stream()
-                .map(r -> r.getBook())
-                .collect(Collectors.toList());
-        return books;
+        return query.getResultList();
     }
 }

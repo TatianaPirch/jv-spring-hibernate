@@ -30,7 +30,7 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public List<Author> findByName(String name) {
         TypedQuery<Author> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Author WHERE name =:name ", Author.class);
+                .createQuery("FROM Author WHERE name LIKE CONCAT('%',:name,'%')", Author.class);
         query.setParameter("name", name);
         return query.getResultList();
     }
@@ -38,7 +38,8 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public List<Author> findByNameAndSurname(String name, String surname) {
         TypedQuery<Author> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Author WHERE name =:name AND surname =:surname", Author.class);
+                .createQuery("FROM Author WHERE name LIKE CONCAT('%',:name,'%')"
+                        + "AND surname LIKE CONCAT('%',:surname,'%')", Author.class);
         query.setParameter("name", name);
         query.setParameter("surname", surname);
         return query.getResultList();
