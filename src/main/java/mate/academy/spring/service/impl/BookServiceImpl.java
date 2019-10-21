@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    BookDao bookDao;
+    private BookDao bookDao;
 
     @Transactional
     @Override
@@ -25,5 +25,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> listBooks() {
         return bookDao.listBooks();
+    }
+
+    @Override
+    public List<Book> findByTitle(String title) {
+        return bookDao.findByTitle(title);
     }
 }
