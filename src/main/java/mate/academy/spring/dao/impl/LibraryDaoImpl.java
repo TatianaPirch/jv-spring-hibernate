@@ -28,7 +28,8 @@ public class LibraryDaoImpl implements LibraryDao {
     @Override
     public Rent returnBook(User user, Book book) {
         TypedQuery<Rent> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Rent WHERE user=:user AND book=:book", Rent.class);
+                .createQuery("FROM Rent WHERE user=:user AND book=:book",
+                        Rent.class).setMaxResults(1);
         query.setParameter("user", user);
         query.setParameter("book", book);
         Rent rent = query.getSingleResult();

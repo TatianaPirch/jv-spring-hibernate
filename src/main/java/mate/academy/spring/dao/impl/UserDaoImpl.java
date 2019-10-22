@@ -1,6 +1,7 @@
 package mate.academy.spring.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.TypedQuery;
 
 import mate.academy.spring.dao.UserDao;
@@ -25,5 +26,13 @@ public class UserDaoImpl implements UserDao {
         TypedQuery<User> query = sessionFactory.getCurrentSession()
                 .createQuery("FROM User", User.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        TypedQuery<User> query = sessionFactory.getCurrentSession()
+                .createQuery("FROM User WHERE id=:id", User.class);
+        query.setParameter("id", id);
+        return Optional.ofNullable(query.getSingleResult());
     }
 }

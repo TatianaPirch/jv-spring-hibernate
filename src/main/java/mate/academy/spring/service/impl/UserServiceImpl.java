@@ -1,6 +1,7 @@
 package mate.academy.spring.service.impl;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import mate.academy.spring.dao.UserDao;
 import mate.academy.spring.entity.User;
@@ -25,6 +26,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> listUsers() {
         return userDao.listUsers();
+    }
+
+    @Transactional
+    @Override
+    public User findById(Long id) {
+        return userDao.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
 }
