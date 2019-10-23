@@ -31,7 +31,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User findById(Long id) {
-        return userDao.findById(id).orElseThrow(NoSuchElementException::new);
+        try {
+            return userDao.findById(id).orElseThrow(NoSuchElementException::new);
+        } catch (NoSuchElementException e) {
+            System.out.println("Not found user with id = " + id);
+        }
+        return null;
     }
-
 }

@@ -37,6 +37,11 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public Book findById(Long id) {
-        return bookDao.findById(id).orElseThrow(NoSuchElementException::new);
+        try {
+            return bookDao.findById(id).orElseThrow(NoSuchElementException::new);
+        } catch (NoSuchElementException e) {
+            System.out.println("Not found book with id = " + id);
+        }
+        return null;
     }
 }

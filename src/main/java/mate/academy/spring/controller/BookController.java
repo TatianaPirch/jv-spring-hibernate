@@ -28,8 +28,14 @@ public class BookController {
 
     @GetMapping("/{id}")
     public String bookInfo(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("book", bookService.findById(id));
-        return "bookInfo";
+        Book book = bookService.findById(id);
+        if (book != null) {
+            model.addAttribute("book", book);
+            return "bookInfo";
+        } else {
+            model.addAttribute("message", "Book with id = " + id + " not found");
+            return "errorPage";
+        }
     }
 
     @PostMapping("/add")

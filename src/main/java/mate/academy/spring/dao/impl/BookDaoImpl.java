@@ -38,9 +38,6 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Optional<Book> findById(Long id) {
-        TypedQuery<Book> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Book WHERE id=:id", Book.class);
-        query.setParameter("id", id);
-        return Optional.ofNullable(query.getSingleResult());
+        return Optional.ofNullable(sessionFactory.getCurrentSession().get(Book.class, id));
     }
 }

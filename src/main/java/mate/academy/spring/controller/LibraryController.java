@@ -25,27 +25,41 @@ public class LibraryController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/listBook")
+    @GetMapping("/rentBook")
     public String getAllBooksRentByUser(ModelMap model) {
         User user = userService.findById(USER_ID);
-        model.put("books", libraryService.getBooksRentByUser(user));
-        return "listBooksRentByUser";
+        if (user != null) {
+            model.put("books", libraryService.getBooksRentByUser(user));
+            return "listBooksRentByUser";
+        } else {
+            model.addAttribute("message", "User not found");
+            return "errorPage";
+        }
     }
 
     @GetMapping("/getBook")
     public String rentBook(@RequestParam("book_id") Long id, ModelMap model) {
         User user = userService.findById(USER_ID);
         Book book = bookService.findById(id);
-        model.addAttribute("book", libraryService.rentBook(user, book));
-        return getAllBooksRentByUser(model);
+        if (book != null && user != null) {
+            model.addAttribute("book", libraryService.rentBook(user, book));
+            return getAllBooksRentByUser(model);
+        } else {
+            model.addAttribute("message", "Failed to rent a book with id = " + id);
+            return "errorPage";
+        }
     }
 
     @GetMapping("/returnBook")
     public String returnBook(@RequestParam("book_id") Long id, ModelMap model) {
         User user = userService.findById(USER_ID);
         Book book = bookService.findById(id);
-        model.addAttribute("book", libraryService.returnBook(user, book));
-        return getAllBooksRentByUser(model);
+        if (book != null && user != null) {
+            model.addAttribute("book", libraryService.returnBook(user, book));
+            return getAllBooksRentByUser(model);
+        } else {
+            model.addAttribute("message", "Failed to return a book with id = " + id);
+            return "errorPage";
+        }
     }
-
 }
