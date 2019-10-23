@@ -1,7 +1,7 @@
 package mate.academy.spring.service.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import mate.academy.spring.dao.BookDao;
 import mate.academy.spring.entity.Book;
@@ -36,12 +36,7 @@ public class BookServiceImpl implements BookService {
 
     @Transactional
     @Override
-    public Book findById(Long id) {
-        try {
-            return bookDao.findById(id).orElseThrow(NoSuchElementException::new);
-        } catch (NoSuchElementException e) {
-            System.out.println("Not found book with id = " + id);
-        }
-        return null;
+    public Optional<Book> findById(Long id) {
+        return bookDao.findById(id);
     }
 }

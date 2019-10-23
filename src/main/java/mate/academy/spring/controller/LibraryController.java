@@ -1,5 +1,7 @@
 package mate.academy.spring.controller;
 
+import java.util.Optional;
+
 import mate.academy.spring.entity.Book;
 import mate.academy.spring.entity.User;
 import mate.academy.spring.service.BookService;
@@ -27,39 +29,37 @@ public class LibraryController {
 
     @GetMapping("/rentBook")
     public String getAllBooksRentByUser(ModelMap model) {
-        User user = userService.findById(USER_ID);
-        if (user != null) {
-            model.put("books", libraryService.getBooksRentByUser(user));
-            return "listBooksRentByUser";
-        } else {
+        Optional<User> optionalUser = userService.findById(USER_ID);
+        if (optionalUser.isEmpty()) {
             model.addAttribute("message", "User not found");
             return "errorPage";
         }
+        model.put("books", libraryService.getBooksRentByUser(optionalUser.get()));
+        return "listBooksRentByUser";
     }
 
     @GetMapping("/getBook")
     public String rentBook(@RequestParam("book_id") Long id, ModelMap model) {
-        User user = userService.findById(USER_ID);
-        Book book = bookService.findById(id);
-        if (book != null && user != null) {
-            model.addAttribute("book", libraryService.rentBook(user, book));
-            return getAllBooksRentByUser(model);
-        } else {
+        Optional<User> optionalUser = userService.findById(USER_ID);
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (optionalUser.isEmpty() || optionalBook.isEmpty()) {
             model.addAttribute("message", "Failed to rent a book with id = " + id);
             return "errorPage";
         }
+        model.addAttribute("book",
+                libraryService.rentBook(optionalUser.get(), optionalBook.get()));
+        return getAllBooksRentByUser(model);
     }
 
     @GetMapping("/returnBook")
     public String returnBook(@RequestParam("book_id") Long id, ModelMap model) {
-        User user = userService.findById(USER_ID);
-        Book book = bookService.findById(id);
-        if (book != null && user != null) {
-            model.addAttribute("book", libraryService.returnBook(user, book));
-            return getAllBooksRentByUser(model);
-        } else {
+        Optional<User> optionalUser = userService.findById(USER_ID);
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (optionalUser.isEmpty() || optionalBook.isEmpty()) {
             model.addAttribute("message", "Failed to return a book with id = " + id);
             return "errorPage";
         }
+        libraryService.returnBook(optionalUser.get(), optionalBook.get());
+        return getAllBooksRentByUser(model);
     }
 }

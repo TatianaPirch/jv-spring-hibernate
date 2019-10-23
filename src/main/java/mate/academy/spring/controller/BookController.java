@@ -1,5 +1,7 @@
 package mate.academy.spring.controller;
 
+import java.util.Optional;
+
 import mate.academy.spring.entity.Book;
 import mate.academy.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +30,13 @@ public class BookController {
 
     @GetMapping("/{id}")
     public String bookInfo(@PathVariable("id") Long id, Model model) {
-        Book book = bookService.findById(id);
-        if (book != null) {
-            model.addAttribute("book", book);
-            return "bookInfo";
-        } else {
+        Optional<Book> optionalBook = bookService.findById(id);
+        if (optionalBook.isEmpty()) {
             model.addAttribute("message", "Book with id = " + id + " not found");
             return "errorPage";
         }
+        model.addAttribute("book", optionalBook.get());
+        return "bookInfo";
     }
 
     @PostMapping("/add")
