@@ -1,6 +1,7 @@
 package mate.academy.spring.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import mate.academy.spring.dao.UserDao;
 import mate.academy.spring.entity.User;
@@ -27,4 +28,9 @@ public class UserServiceImpl implements UserService {
         return userDao.listUsers();
     }
 
+    @Transactional
+    @Override
+    public Optional<User> findById(Long id) {
+        return userDao.findById(id);
+    }
 }

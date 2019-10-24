@@ -9,6 +9,7 @@ import mate.academy.spring.entity.Book;
 import mate.academy.spring.entity.Rent;
 import mate.academy.spring.entity.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,15 +27,13 @@ public class LibraryDaoImpl implements LibraryDao {
     }
 
     @Override
-    public Rent returnBook(User user, Book book) {
-        TypedQuery<Rent> query = sessionFactory.getCurrentSession()
-                .createQuery("FROM Rent WHERE user=:user AND book=:book", Rent.class);
+    public void returnBook(User user, Book book) {
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("UPDATE  Rent SET is_active = 0 WHERE user=:user"
+                        + " AND book=:book AND is_active = 1");
         query.setParameter("user", user);
         query.setParameter("book", book);
-        Rent rent = query.getSingleResult();
-        rent.setActive(false);
-        sessionFactory.getCurrentSession().update(rent);
-        return rent;
+        query.executeUpdate();
     }
 
     @Override

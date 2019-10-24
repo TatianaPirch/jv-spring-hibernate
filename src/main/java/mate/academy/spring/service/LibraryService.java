@@ -10,7 +10,7 @@ public interface LibraryService {
 
     Rent rentBook(User user, Book book);
 
-    Rent returnBook(User user, Book book);
+    void returnBook(User user, Book book);
 
     List<Book> getBooksRentByUser(User user);
 }
