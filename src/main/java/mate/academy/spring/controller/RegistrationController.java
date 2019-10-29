@@ -1,10 +1,8 @@
 package mate.academy.spring.controller;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.validation.Valid;
 
+import mate.academy.spring.dto.DtoUtil;
 import mate.academy.spring.dto.UserDto;
 import mate.academy.spring.entity.Role;
 import mate.academy.spring.entity.User;
@@ -30,6 +28,9 @@ public class RegistrationController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private DtoUtil dtoUtil;
+
     @GetMapping
     public String registerForm(Model model) {
         model.addAttribute("userDto", new UserDto());
@@ -38,17 +39,14 @@ public class RegistrationController {
 
     @PostMapping
     public String registerUser(@ModelAttribute @Valid UserDto userDto,
-            BindingResult result, Model model) {
-        User newUser = new User(userDto.getUsername(), userDto.getPassword(),
-                userDto.getFirstName(), userDto.getLastName(), userDto.getEmail());
+                               BindingResult result, Model model) {
+        User newUser = dtoUtil.convertDto(userDto);
         if (result.hasErrors()) {
             model.addAttribute("message", "User creating error");
             return "errorPage";
         }
-        Set<Role> roles = new HashSet<>();
         Role role = roleService.getRoleByName(ROLE_NAME).get();
-        roles.add(role);
-        newUser.setRoles(roles);
+        newUser.getRoles().add(role);
         userService.add(newUser);
         return "login";
     }
