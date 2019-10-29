@@ -3,9 +3,10 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <html>
 <head>
-    <title>User with id = 1 </title>
+    <title>Rented books</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <p>Books</p>
 <hr>
 <table border="1">

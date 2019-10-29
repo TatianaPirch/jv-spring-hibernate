@@ -4,6 +4,7 @@
     <title>Add book</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <form action="${pageContext.request.contextPath}/book/add" method="post">
     <table>
         <tr>

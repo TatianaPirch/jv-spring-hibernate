@@ -1,5 +1,6 @@
 package mate.academy.spring.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +29,7 @@ public class Author {
     @JoinTable(name = "authors_books",
             joinColumns = @JoinColumn(name = "author_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 
     public Author() {
     }

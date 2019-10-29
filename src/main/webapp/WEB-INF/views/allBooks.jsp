@@ -1,10 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <html>
 <head>
     <title>All Items</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <p>Books</p>
 <hr>
 <table border="1">
@@ -33,20 +36,10 @@
     </c:forEach>
 </table>
 <hr>
-<form action=${pageContext.request.contextPath}/book/find method="get">
-    <table>
-
-        <tr>
-            <td>Find by title:</td>
-            <td><input value="${title}" name="title"></td>
-        </tr>
-        <tr>
-            <td>
-                <button type="Find">Find</button><br>
-                <br>
-            </td>
-        </tr>
-    </table>
+<form action="${pageContext.request.contextPath}/book/find" method="get">
+    <td>Find by title:</td>
+    <td><input value="${title}" name="title"/></td>
+    <button type="submit"> Find</button>
 </form>
 </body>
 </html>

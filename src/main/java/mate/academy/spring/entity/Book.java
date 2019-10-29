@@ -1,5 +1,6 @@
 package mate.academy.spring.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ public class Book {
     private Double price;
 
     @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
-    private List<Author> authors;
+    private List<Author> authors = new ArrayList<>();
 
     public Book() {
     }

@@ -17,8 +17,9 @@ public class UserDaoImpl implements UserDao {
     private SessionFactory sessionFactory;
 
     @Override
-    public void add(User user) {
+    public User add(User user) {
         sessionFactory.getCurrentSession().save(user);
+        return user;
     }
 
     @Override
@@ -30,7 +31,15 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findById(Long id) {
-
         return Optional.ofNullable(sessionFactory.getCurrentSession().get(User.class, id));
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        TypedQuery<User> query = sessionFactory.getCurrentSession()
+                .createQuery("from User where username=:username",
+                        User.class);
+        query.setParameter("username", username);
+        return Optional.ofNullable(query.getSingleResult());
     }
 }

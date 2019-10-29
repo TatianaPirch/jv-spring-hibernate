@@ -6,6 +6,7 @@
     <title>Book Info</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <p>Book "${book.title}" with ID ${book.id} </p>
 <p>Book "${book.title}" was published in ${book.year} </p>
 <p>"${book.title}" authors: </p>
