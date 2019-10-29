@@ -7,6 +7,7 @@ import mate.academy.spring.dao.UserDao;
 import mate.academy.spring.entity.User;
 import mate.academy.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,10 +17,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     @Override
-    public void add(User user) {
-        userDao.add(user);
+    public User add(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userDao.add(user);
     }
 
     @Transactional(readOnly = true)
@@ -32,5 +37,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(Long id) {
         return userDao.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userDao.findByUsername(username);
     }
 }
