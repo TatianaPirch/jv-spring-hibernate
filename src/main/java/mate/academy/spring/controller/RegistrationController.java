@@ -1,5 +1,6 @@
 package mate.academy.spring.controller;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import mate.academy.spring.dto.DtoUtil;
@@ -45,7 +46,9 @@ public class RegistrationController {
             model.addAttribute("message", "User creating error");
             return "errorPage";
         }
-        Role role = roleService.getRoleByName(ROLE_NAME).get();
+        Role role = roleService.getRoleByName(ROLE_NAME)
+                .orElseThrow(() ->
+                new EntityNotFoundException("No role with name:" + ROLE_NAME));
         newUser.getRoles().add(role);
         userService.add(newUser);
         return "login";

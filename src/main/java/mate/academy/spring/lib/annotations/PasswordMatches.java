@@ -1,4 +1,4 @@
-package mate.academy.spring.security.annotations;
+package mate.academy.spring.lib.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import mate.academy.spring.security.PasswordMatchesValidator;
+import mate.academy.spring.lib.PasswordMatchesValidator;
 
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
