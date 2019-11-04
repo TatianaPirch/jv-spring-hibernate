@@ -57,17 +57,19 @@ public class DataInjector {
         roleService.add(USER);
         roleService.add(ADMIN);
 
-        User sunil = new User();
-        sunil.setFirstName("Sunil");
-        sunil.setLastName("Bora");
-        sunil.setEmail("sunil.bora@example.com\"");
-        sunil.setUsername("sunil");
-        sunil.setPassword("1");
-        Role sunilRole = roleService.getRoleByName("ROLE_ADMIN").get();
-        Set<Role> sunilRoles = new HashSet<>();
-        sunilRoles.add(sunilRole);
-        sunil.setRoles(sunilRoles);
-        userService.add(sunil);
+        User admin = new User();
+        admin.setFirstName("admin");
+        admin.setLastName("admin");
+        admin.setEmail("admin.admin@example.com");
+        admin.setUsername("admin");
+        admin.setPassword("1");
+        Role adminRoleUser = roleService.getRoleByName("ROLE_USER").get();
+        Role adminRoleAdmin = roleService.getRoleByName("ROLE_ADMIN").get();
+        Set<Role> adminRoles = new HashSet<>();
+        adminRoles.add(adminRoleUser);
+        adminRoles.add(adminRoleAdmin);
+        admin.setRoles(adminRoles);
+        userService.add(admin);
 
         User david = new User();
         david.setFirstName("David");

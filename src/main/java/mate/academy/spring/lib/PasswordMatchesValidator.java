@@ -1,10 +1,10 @@
-package mate.academy.spring.security;
+package mate.academy.spring.lib;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import mate.academy.spring.dto.UserDto;
-import mate.academy.spring.security.annotations.PasswordMatches;
+import mate.academy.spring.lib.annotations.PasswordMatches;
 
 public class PasswordMatchesValidator
         implements ConstraintValidator<PasswordMatches, UserDto> {

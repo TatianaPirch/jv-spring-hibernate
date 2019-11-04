@@ -1,4 +1,4 @@
-package mate.academy.spring.security.annotations;
+package mate.academy.spring.lib.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import mate.academy.spring.security.EmailValidator;
+import mate.academy.spring.lib.EmailValidator;
 
 @Target({ ElementType.TYPE, ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
