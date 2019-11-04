@@ -49,6 +49,4 @@ By default you have user with role USER and ADMIN (login = admin, password = 1).
 # <a name="authors"></a>Authors
 Author: Tatiana Pyrch
 
-LinkedIn: [My LinkedIn Profile](https://www.linkedin.com/in/tatiana-pyrch-97235b162)
-
-GitHub: [My Projects](https://github.com/TatianaPirch)
+ [LinkedIn](https://www.linkedin.com/in/tatiana-pyrch-97235b162)
